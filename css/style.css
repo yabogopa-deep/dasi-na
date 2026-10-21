@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+/* ==========================================
+   기본 글꼴 설정 (Google Fonts: Noto Sans KR)
+   ========================================== */
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.6;
+}
