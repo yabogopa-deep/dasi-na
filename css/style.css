@@ -1,9 +1,322 @@
 @charset "UTF-8";
 
-/* ==========================================
-   기본 글꼴 설정 (Google Fonts: Noto Sans KR)
-   ========================================== */
+/* =========================================
+   [목차]
+   1. 색상 변수 및 전역 스타일
+   2. 상단 헤더 및 네비게이션 (상단 고정 & Flexbox)
+   3. 본문 공통 섹션 스타일 (제목 밑줄 포함)
+   4. 소개 영역 (#about - 원형 프로필 & Grid)
+   5. 경력 영역 (#career - 카드 디자인 & Grid)
+   6. 역량 및 교육·자격 영역 (#skills, #education)
+   7. 문의 영역 (#contact)
+   8. 하단 푸터 (footer)
+   ========================================= */
+
+/* -----------------------------------------
+   1. 색상 변수 및 전역 스타일
+   ----------------------------------------- */
+:root {
+  --color-primary: #2f6f5e;    /* 대표색: 짙은 초록 */
+  --color-accent: #f2a65a;     /* 강조색: 살구색 */
+  --color-bg: #f8f9fa;         /* 페이지 배경색 */
+  --color-card-bg: #ffffff;    /* 카드/콘텐츠 배경색 */
+  --color-text: #333333;       /* 본문 글자색 */
+  --color-muted: #666666;      /* 보조 글자색 */
+  --color-border: #e9ecef;     /* 테두리선 색상 */
+}
+
+/* 전체 여백 초기화 및 박스 사이징 설정 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    line-height: 1.6;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  padding-top: 110px; /* 고정 헤더에 본문이 가려지지 않도록 상단 여백 확보 */
+}
+
+/* 링크 기본 밑줄 제거 */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* -----------------------------------------
+   2. 상단 헤더 및 네비게이션 (고정 & Flexbox)
+   ----------------------------------------- */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--color-card-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+  padding: 12px 16px;
+}
+
+header h1 {
+  font-size: 1.3rem;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* 네비게이션 메뉴 Flexbox 정렬 */
+nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  list-style: none;
+}
+
+nav a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-muted);
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+nav a:hover,
+nav a:focus {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* -----------------------------------------
+   3. 본문 공통 섹션 스타일
+   ----------------------------------------- */
+main {
+  padding: 16px;
+}
+
+section {
+  background-color: var(--color-card-bg);
+  border-radius: 12px;
+  padding: 24px 18px;
+  margin-bottom: 24px;
+  border: 1px solid var(--color-border);
+}
+
+/* 섹션 공통 제목 및 강조색 밑줄 */
+section h2 {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+/* 제목 하단 강조색 밑줄 가상 요소 */
+section h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 32px;
+  height: 3px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+/* -----------------------------------------
+   4. 소개 영역 (#about - 원형 프로필 & Grid)
+   ----------------------------------------- */
+#about {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+  gap: 12px;
+}
+
+/* 프로필 사진 원형 처리 */
+#about img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--color-primary);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#about h2 {
+  margin-bottom: 4px;
+}
+
+#about h2::after {
+  left: 50%;
+  transform: translateX(-50%); /* 중앙 정렬용 밑줄 */
+}
+
+#about p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  word-break: keep-all;
+}
+
+/* -----------------------------------------
+   5. 경력 영역 (#career - 카드 디자인 & Grid)
+   ----------------------------------------- */
+#career {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* 경력 개별 카드 디자인 */
+#career article {
+  background-color: var(--color-bg);
+  border-left: 4px solid var(--color-primary);
+  padding: 16px;
+  border-radius: 6px;
+}
+
+#career h3 {
+  font-size: 1.05rem;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+/* 근무 기간 텍스트 */
+#career article p:nth-of-type(1) {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-bottom: 8px;
+}
+
+/* 업무 내용 텍스트 */
+#career article p:nth-of-type(2) {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* -----------------------------------------
+   6. 역량 및 교육·자격 영역 (#skills, #education)
+   ----------------------------------------- */
+#skills ul,
+#education ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#skills li,
+#education li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 0.95rem;
+}
+
+/* 불릿 포인트를 강조색 점으로 대체 */
+#skills li::before,
+#education li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-
+/* =========================================
+   9. 반응형 미디어 쿼리 (Responsive Design)
+   9-1. 태블릿 해상도 이상 (768px 이상)
+   9-2. 데스크톱 PC 해상도 이상 (1024px 이상)
+   ========================================= */
+
+/* -----------------------------------------
+   9-1. 태블릿 해상도 이상 (768px 이상)
+   ----------------------------------------- */
+@media screen and (min-width: 768px) {
+  /* 헤더 높이가 줄어들므로 본문 상단 여백 재조정 */
+  body {
+    padding-top: 80px;
+  }
+
+  /* 헤더: 사이트 이름 왼쪽, 메뉴 오른쪽 배치 */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 32px;
+  }
+
+  header h1 {
+    margin-bottom: 0;
+  }
+
+  /* 본문 영역: 가독성을 위해 최대 너비 지정 및 가운데 정렬 */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* 소개 영역: 사진 왼쪽, 소개글 오른쪽 2열 그리드 */
+  #about {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    text-align: left;
+    gap: 32px;
+    padding: 32px;
+  }
+
+  #about h2::after {
+    left: 0;
+    transform: none; /* 태블릿에서는 왼쪽 정렬로 복원 */
+  }
+
+  /* 경력 카드: 2열 그리드 배치 */
+  #career {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* 역량 및 교육 목록: 2열 그리드 배치 */
+  #skills ul,
+  #education ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 24px;
+  }
+}
+
+/* -----------------------------------------
+   9-2. 데스크톱 PC 해상도 이상 (1024px 이상)
+   ----------------------------------------- */
+@media screen and (min-width: 1024px) {
+  /* PC 화면 전체 콘텐츠 폭 확장 */
+  main {
+    max-width: 1100px;
+  }
+
+  /* 프로필 사진 크기 확대 */
+  #about img {
+    width: 180px;
+    height: 180px;
+  }
+
+  /* 프로필 이름 글자 크기 확대 */
+  #about h2 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+
+  /* 프로필 한 줄 소개 텍스트 크기 확대 */
+  #about p {
+    font-size: 1.1rem;
+  }
+}
+:root {
+  --color-primary: #1e3a5f;    /* 대표색: 차분한 남색 */
+  --color-accent: #f4a6b2;     /* 강조색: 연분홍 */
+  --color-bg: #f8f9fa;         /* 페이지 배경색 */
+  --color-card-bg: #ffffff;    /* 카드/콘텐츠 배경색 */
+  --color-text: #333333;       /* 본문 글자색 */
+  --color-muted: #666666;      /* 보조 글자색 */
+  --color-border: #e9ecef;     /* 테두리선 색상 */
 }
